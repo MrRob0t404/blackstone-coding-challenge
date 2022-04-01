@@ -13,7 +13,7 @@ router.get("/api/meeting-rooms/:id", db.getMeetingRoomById); //gets meeting room
 router.get("/api/meeting-rooms/:id/bookings", db.getFutureBookings); //gets all future bookings of a meeting room
 router.get("/api/bookings/", db.getBookings); //creates a booking for a meeting room
 router.get("/api/bookings/id", db.getBookingById); //creates a booking for a meeting room
-router.post("/api/bookings", db.getMeetingRoomBookings); //creates a booking for a meeting room
+router.post("/api/bookings", db.createBookingforMeetingRoom); //creates a booking for a meeting room
 router.delete("/api/bookings/:id", db.deleteBooking); //cancel a booking
 
 // todo
