@@ -1,0 +1,17 @@
+#meeting-room-card-container {
+  border: 2px solid grey;
+  border-radius: 1em;
+  margin: 2em auto;
+  padding-left: 1em;
+  box-sizing: border-box;
+  width: inherit;
+}
+
+.capacity {
+  display: flex;
+  align-items: center;
+}
+
+.capacity-icon {
+  margin-right: 0.5em;
+}
