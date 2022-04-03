@@ -4,7 +4,7 @@
     "description": "",
     "scripts": {
         "start:react": "parcel serve frontend/index.html --open --dist-dir frontend/build",
-        "start": "cd backend && npm install && node backend/app.js",
+        "start": "cd backend && npm install && node app.js",
         "build": "cd frontend && npm install && npm run build"
     },
     "keywords": [],
