@@ -1,31 +1,36 @@
 const db = require("./index");
-
+const moment = require("moment");
 function getMeetingRooms(req, res) {
   db.any("SELECT * FROM meeting_rooms;", {})
     .then((data) => {
       res.status(200).json({ meeting_rooms: data });
     })
     .catch((err) => {
-      console.log(`err on getting meeting room`, err);
       res.status(500).json({ message: `FAILED: getMeetingRooms` });
     });
 }
 
 function createMeetingRoom(req, res) {
-  db.none(
+  let data = req.body.data;
+  db.any(
     "INSERT INTO meeting_rooms (meeting_room_id, name, capacity, floor) VALUES(${meeting_room_id" +
       "}, ${name}, ${capacity}, ${floor})",
     {
-      meeting_room_id: 666666,
-      name: "name2",
-      capacity: 5,
-      floor: 5,
+      meeting_room_id: data.meeting_room_id.toString(),
+      name: data.name,
+      capacity: data.capacity,
+      floor: data.floor,
     }
-  ).then(() => console.log("sucess"));
+  )
+    .then(() => {
+      res.status(200).json({ status: `successfully created a meeting room` });
+    })
+    .catch((err) => {
+      res.status(500).json({ status: `failed${err}` });
+    });
 }
 
 function getMeetingRoomById(req, res) {
-  console.log(`req.params`, req.query.id);
   db.one(
     "SELECT * FROM meeting_rooms WHERE meeting_room_id=${meeting_room_id};",
     {
@@ -55,13 +60,17 @@ function getFutureBookings(req, res) {
       res.status(200).json({ meeting_rooms: data });
     })
     .catch((err) => {
-      console.log(`err on getting meeting room`, err);
-      res.status(500).json({ message: `FAILED: getMeetingRooms` });
+      res
+        .status(500)
+        .json({ message: `FAILED: Could not get future bookings` });
     });
 }
 
 function getBookings(req, res) {
-  db.any("select * from bookings;", {})
+  db.any(
+    "select bookings.booking_id, bookings.meeting_name, meeting_rooms.name, meeting_rooms.floor, bookings.start_time, bookings.end_time, bookings.meeting_name, bookings.attendees from bookings inner join meeting_rooms on bookings.meeting_room_id=meeting_rooms.meeting_room_id",
+    {}
+  )
     .then((data) => {
       res.status(200).json({
         status: "success",
@@ -75,15 +84,24 @@ function getBookings(req, res) {
 }
 
 function createBookingforMeetingRoom(req, res) {
-  console.log(`req.query`, req.query);
-  db.any(
-    "INSERT INTO bookings (booking_id, meeting_room_id, start_time, end_time) VALUES(12345, 2, '20250618 10:34:09 AM', '20250618 10:34:09 AM');",
+  console.log(
+    moment.utc(req.body.start_time).local().format("YYYY-MM-DDTHH:mm:SS.sss")
+  );
+  db.none(
+    "INSERT INTO bookings (booking_id, meeting_room_id, start_time, end_time, meeting_name, attendees) VALUES(${booking_id}, ${meeting_room_id}, ${start_time}, ${end_time}, ${meeting_name}, ${attendees});",
     {
-      booking_id: req.params.booking_id,
-      meeting_room_id: req.params.meeting_room_id,
-      start_time: req.params.start_time,
-      end_time: req.params.end_time,
-      participants: req.params.participants,
+      booking_id: req.body.booking_id,
+      meeting_room_id: req.body.meeting_room_id,
+      start_time: moment
+        .utc(req.body.start_time)
+        .local()
+        .format("YYYY-MM-DDTHH:mm:SS.sss"),
+      end_time: moment
+        .utc(req.body.end_time)
+        .local()
+        .format("YYYY-MM-DDTHH:mm:SS.sss"),
+      meeting_name: req.body.meeting_name,
+      attendees: req.body.attendees,
     }
   )
     .then((data) => {
@@ -98,25 +116,24 @@ function createBookingforMeetingRoom(req, res) {
 }
 
 function getBookingById(req, res) {
-  console.log(`req.params`, req.params.id);
   db.one("SELECT * FROM bookings WHERE booking_id=${booking_id};", {
-    booking_id: req.params.id,
+    booking_id: req.query.id,
   })
     .then((data) => {
       res.status(200).json({
         status: "success",
         data: data,
-        message: "Fetched meeting room",
+        message: "Fetched booking",
       });
     })
     .catch((err) => {
-      res.status(500).json({ message: `FAILED: Meeting room does not exisit` });
+      res.status(500).json({ message: `FAILED: Could not get booking` });
     });
 }
 
 function deleteBooking(req, res) {
-  db.one("delete from meeting_rooms where booking_id=${booking_id};", {
-    booking_id: req.params.id,
+  db.none("delete from bookings where booking_id=${booking_id};", {
+    booking_id: req.query.id,
   })
     .then((data) => {
       res.status(200).json({
