@@ -4,7 +4,7 @@
     "description": "",
     "scripts": {
         "start:react": "parcel serve client/index.html --open --dist-dir client/build",
-        "start": "node server/index.js",
+        "start": "node backend/index.js",
         "build": "cd frontend && npm install && npm run build"
     },
     "keywords": [],
