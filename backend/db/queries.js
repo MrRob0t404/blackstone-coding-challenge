@@ -84,9 +84,6 @@ function getBookings(req, res) {
 }
 
 function createBookingforMeetingRoom(req, res) {
-  console.log(
-    moment.utc(req.body.start_time).local().format("YYYY-MM-DDTHH:mm:SS.sss")
-  );
   db.none(
     "INSERT INTO bookings (booking_id, meeting_room_id, start_time, end_time, meeting_name, attendees) VALUES(${booking_id}, ${meeting_room_id}, ${start_time}, ${end_time}, ${meeting_name}, ${attendees});",
     {
@@ -146,6 +143,35 @@ function deleteBooking(req, res) {
     });
 }
 
+function findAvaiableRooms(req, res) {
+  console.log(parseInt(req.query.floor));
+  db.any(
+    "with booked_rooms as (select distinct meeting_room_id from bookings where ${start_time} between start_time and end_time or ${end_time} between start_time and end_time) select * from meeting_rooms where meeting_room_id not in (select * from booked_rooms) and capacity >= ${capacity} and floor = ${floor}",
+    {
+      start_time: moment
+        .utc(req.query.start_time)
+        .local()
+        .format("YYYY-MM-DDTHH:mm:SS.sss"),
+      end_time: moment
+        .utc(req.query.end_time)
+        .local()
+        .format("YYYY-MM-DDTHH:mm:SS.sss"),
+      capacity: parseInt(req.query.capacity),
+      floor: parseInt(req.query.floor),
+    }
+  )
+    .then((data) => {
+      res.status(200).json({
+        status: "success",
+        data: data,
+        message: "Found available meeting rooms",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: `Couldn't find any meeting rooms` });
+    });
+}
+
 module.exports = {
   getMeetingRooms,
   createMeetingRoom,
@@ -155,4 +181,5 @@ module.exports = {
   getBookingById,
   createBookingforMeetingRoom,
   deleteBooking,
+  findAvaiableRooms,
 };

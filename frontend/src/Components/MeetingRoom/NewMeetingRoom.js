@@ -103,7 +103,7 @@ export default function NewMeetingRoom(props) {
           </form>
         </Paper>
       ) : (
-        <div>
+        <div className="adjust-width">
           <h1>{message}</h1>
           <button onClick={handleRouteChange}>Home</button>
         </div>

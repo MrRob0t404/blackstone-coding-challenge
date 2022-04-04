@@ -18,6 +18,7 @@ const BookingDetails = (props) => {
         params: { id: location.state.id },
       })
       .then((res) => {
+        console.log(res.data);
         setBookingDetails(res.data.data);
       });
   }, []);
@@ -70,7 +71,7 @@ const BookingDetails = (props) => {
     );
   } else {
     return (
-      <div>
+      <div className="adjust-width">
         <h1>{message}</h1>
         <button onClick={handleRouteChange}>Home</button>
       </div>

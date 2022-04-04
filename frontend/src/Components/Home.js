@@ -6,10 +6,17 @@ import MeetingRoomCard from "./MeetingRoom/MeetingRoomCard";
 import MUIForm from "./MUIComponents/MUIForm";
 
 const Home = (props) => {
-  const { meetingRooms } = props;
+  const { meetingRooms, message } = props;
   return (
     <div id="find-results">
       <MUIForm findMeetingRooms={props.findMeetingRooms} />
+      {message ? (
+        <div className="adjust-width-find-room-message">
+          <h1>{message}</h1>
+        </div>
+      ) : (
+        ""
+      )}
       <div id="find-results">
         {meetingRooms.map((ele) => (
           <MeetingRoomCard

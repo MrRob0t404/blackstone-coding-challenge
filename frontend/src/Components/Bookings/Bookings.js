@@ -13,10 +13,9 @@ const Bookings = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(bookings);
+
   return (
     <div>
-      <h1>Booking page</h1>
       {bookings.map((reservedTime, i) => (
         <div>
           <BookingCard

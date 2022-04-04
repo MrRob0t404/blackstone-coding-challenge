@@ -20,7 +20,7 @@ const MeetingRoom = (props) => {
   const [end_time, setEndTime] = React.useState(new Date());
   const [formInput, setFormInput] = useState({
     name: "",
-    attendies: "",
+    attendees: "",
   });
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const MeetingRoom = (props) => {
 
     fetchData();
   }, []);
-
+  console.log(meetingRoomDetails.bookingDetails);
   const handleInput = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -60,7 +60,6 @@ const MeetingRoom = (props) => {
 
   const submitBooking = (e) => {
     e.preventDefault();
-    console.log(formInput, start_time.toISOString(), end_time);
     axios
       .post("http://localhost:3001/api/bookings", {
         booking_id: Math.ceil(Math.random() * 10000), //"unique" ID ... could be solved with more time and a better hashing function
@@ -161,7 +160,7 @@ const MeetingRoom = (props) => {
     );
   } else {
     return (
-      <div>
+      <div className="adjust-width">
         <h1>{message}</h1>
         <button onClick={handleRouteChange}>Home</button>
       </div>

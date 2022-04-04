@@ -21,6 +21,7 @@ const MeetingRooms = (props) => {
     <div>
       {newMeetingRooms.map((meetingRoom) => (
         <MeetingRoomCard
+          className="adjust-width"
           key={meetingRoom.meeting_room_id}
           meeting_room_id={meetingRoom.meeting_room_id}
           name={meetingRoom.name}

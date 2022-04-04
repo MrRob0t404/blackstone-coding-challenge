@@ -15,20 +15,6 @@ router.get("/api/bookings/", db.getBookings); //gets all bookings
 router.get("/api/bookings/:id", db.getBookingById); //creates a booking for a meeting room
 router.post("/api/bookings", db.createBookingforMeetingRoom); //creates a booking for a meeting room
 router.delete("/api/bookings/:id", db.deleteBooking); //cancel a booking
-
-// todo
-// required endpoints
-// /api/meeting-rooms/available`;
+router.get("/api/findMeetingRooms", db.findAvaiableRooms); //finds available meeting rooms
 
 module.exports = router;
-
-/*
- * /api/meeting-rooms - GET - done
- * /api/meeting-rooms - POST - done
- * /api/meeting-rooms/:id - GET - done
- * /api/meeting-rooms/:id/bookings - GET - done
- * /api/bookings - GET - done
- * /api/bookings/:id - GET - done
- * /api/bookings - POST
- * /api/bookings/:id - DELETE
- */

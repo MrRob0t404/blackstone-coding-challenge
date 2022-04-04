@@ -33,7 +33,26 @@ class App extends Component {
 
   findMeetingRooms = (e, formInput) => {
     e.preventDefault();
-    console.log("clicked from app.js", formInput);
+    axios
+      .get("/api/findMeetingRooms", {
+        params: {
+          start_time: formInput.start_time,
+          end_time: formInput.end_time,
+          capacity: formInput.capacity,
+          floor: formInput.floor,
+        },
+      })
+      .then((res) => {
+        if (res.data.data.length) {
+          this.setState({
+            meetingRooms: res.data.data,
+          });
+        } else {
+          this.setState({
+            message: "No rooms available",
+          });
+        }
+      });
   };
 
   handleHomePage = () => {
@@ -42,6 +61,7 @@ class App extends Component {
       <Home
         meetingRooms={meetingRooms}
         findMeetingRooms={this.findMeetingRooms}
+        message={this.state.message}
       />
     );
   };
