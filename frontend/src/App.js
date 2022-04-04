@@ -17,6 +17,7 @@ class App extends Component {
     super();
     this.state = {
       meetingRooms: [],
+      filteredMeetingRooms: [],
     };
   }
 
@@ -45,7 +46,7 @@ class App extends Component {
       .then((res) => {
         if (res.data.data.length) {
           this.setState({
-            meetingRooms: res.data.data,
+            filteredMeetingRooms: res.data.data,
           });
         } else {
           this.setState({
@@ -56,10 +57,11 @@ class App extends Component {
   };
 
   handleHomePage = () => {
-    const { meetingRooms } = this.state;
+    const { meetingRooms, filteredMeetingRooms } = this.state;
     return (
       <Home
         meetingRooms={meetingRooms}
+        filteredMeetingRooms={filteredMeetingRooms}
         findMeetingRooms={this.findMeetingRooms}
         message={this.state.message}
       />
