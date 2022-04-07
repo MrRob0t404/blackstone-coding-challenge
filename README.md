@@ -40,4 +40,4 @@ Mainly used as an admin tool, the admin would be able to do the following:
 ## Known issues 
 - When cancelling a booking, the state of the booking ID is not saved 
 - How to reproduce: 
-  Click into a booking you want to cancel, click into the booking again and you will notice the URL ID parameter is now undefined. 
+  Click into a booking you want to cancel, click into the booking again and you will notice the URL ID parameter is now undefined this prevents the room from being canceled. 
