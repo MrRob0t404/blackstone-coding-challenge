@@ -144,7 +144,6 @@ function deleteBooking(req, res) {
 }
 
 function findAvaiableRooms(req, res) {
-  console.log(parseInt(req.query.floor));
   db.any(
     "with booked_rooms as (select distinct meeting_room_id from bookings where ${start_time} between start_time and end_time or ${end_time} between start_time and end_time) select * from meeting_rooms where meeting_room_id not in (select * from booked_rooms) and capacity >= ${capacity} and floor = ${floor}",
     {

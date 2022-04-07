@@ -10,6 +10,7 @@ const MeetingRoomCard = (props) => {
   return (
     <div
       id="meeting-room-card-container"
+      className="pointer"
       onClick={() => {
         history(`/meetingrooms/${meeting_room_id}`, {
           replace: true,

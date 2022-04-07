@@ -10,7 +10,7 @@ const BookingCard = (props) => {
   const { booking_id, name, meeting_name, start_time, end_time, floor } = props;
   return (
     <div
-      id="booking-card-container"
+      id="booking-card-container" className="pointer"
       onClick={() => {
         history(`/bookings/${booking_id}`, {
           replace: true,

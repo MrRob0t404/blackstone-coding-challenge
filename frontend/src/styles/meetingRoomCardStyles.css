@@ -45,3 +45,8 @@
   width: 50vw;
 }
 
+.pointer:hover {
+  cursor: pointer;
+  background-color: #003d6a;
+  color: white;
+}
