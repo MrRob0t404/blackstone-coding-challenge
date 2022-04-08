@@ -226,6 +226,9 @@
     "heroku-postbuild": "cd frontend/ && npm install && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "16.13.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MrRob0t404/blackstone-coding-challenge.git"
