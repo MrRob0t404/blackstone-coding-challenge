@@ -221,7 +221,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "cd backend/ && npm install && node ./bin/www",
+    "start": "npm install && cd backend/ && npm install && node ./bin/www",
     "devStart": "nodemon node ./bin/www",
     "heroku-postbuild": "cd frontend/ && npm install && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
