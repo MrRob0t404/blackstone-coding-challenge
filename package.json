@@ -229,6 +229,9 @@
   "os": [
     "darwin"
   ],
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
+  },
   "engines": {
     "node": "16.13.1"
   },
