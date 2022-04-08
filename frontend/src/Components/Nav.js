@@ -19,7 +19,7 @@ const pages = [
 ];
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav] = React.useState(null);
 
   return (
     <AppBar id="nav-bar-container" position="static">
