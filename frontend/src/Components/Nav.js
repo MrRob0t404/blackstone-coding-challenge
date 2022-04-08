@@ -21,10 +21,6 @@ const pages = [
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   return (
     <AppBar id="nav-bar-container" position="static">
       <Container maxWidth="xl">
